@@ -1,0 +1,11 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.40
+pydantic==2.11.3
+python-dotenv==1.0.1
+alpaca-py==0.43.2
+pydantic-settings==2.8.1
+httpx==0.28.1
+pytest==8.3.5
+email-validator==2.2.0
+charset-normalizer==3.4.4

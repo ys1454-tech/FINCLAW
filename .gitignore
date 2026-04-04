@@ -1,0 +1,37 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+build/
+.build/
+.npm/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Databases / runtime artifacts
+*.db
+*.sqlite
+*.sqlite3
+*.log
+coverage.xml
+.pytest_tmp/
+
+# Docker overrides
+.docker/

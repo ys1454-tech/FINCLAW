@@ -1,0 +1,45 @@
+version: '3.9'
+services:
+  finclaw-backend:
+    build:
+      context: ./backend
+    container_name: finclaw-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  finclaw-agent:
+    image: python:3.11-slim
+    container_name: finclaw-agent
+    working_dir: /workspace
+    command: sh -c "sleep 5 && python -m agent.main bootstrap && python -m agent.main status"
+    environment:
+      FINCLAW_BACKEND_URL: http://finclaw-backend:8000
+      FINCLAW_AGENT_EMAIL: agent@trading.ai
+      FINCLAW_AGENT_TICKERS: AAPL,MSFT,NVDA
+      FINCLAW_AGENT_LOOP_INTERVAL: 20
+      FINCLAW_AGENT_STRATEGY: conservative-paper-sim
+    volumes:
+      - ./:/workspace
+    restart: unless-stopped
+    depends_on:
+      - finclaw-backend
+
+  finclaw-frontend:
+    image: python:3.11-slim
+    container_name: finclaw-frontend
+    working_dir: /frontend
+    command: python -m http.server 3000
+    ports:
+      - '3000:3000'
+    environment:
+      FINCLAW_API_BASE: http://finclaw-backend:8000
+    volumes:
+      - ./ArmorClawFrontend-main/Armorclaw frontend:/frontend
+    restart: unless-stopped
+    depends_on:
+      - finclaw-backend

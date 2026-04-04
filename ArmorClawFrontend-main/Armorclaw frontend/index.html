@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="FINCLAW - Institutional Grade Trading Terminal. Secure, high-performance portfolio management and automated trading.">
+    <title>FINCLAW | Institutional Terminal</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <!-- LOGIN SCREEN -->
+    <div id="page-login" class="page active">
+        <div class="login-environment">
+            <div class="login-ambient-glow"></div>
+            <div class="login-version-tag">V.04.12.9</div>
+            <div class="login-terminal-frame">
+                <div class="login-header">
+                    <h1 class="login-logo" style="display: flex; align-items: center; justify-content: center; gap: 4px;">FINCLAW<img src="favicon.png" alt="Finclaw Icon" style="height: 1.5em; width: auto; object-fit: contain;"></h1>
+                    <p class="login-subtitle">INSTITUTIONAL GRADE</p>
+                </div>
+                <div class="login-card">
+                    <div class="login-field-group">
+                        <label class="login-label" for="login-username">IDENTITY IDENTIFIER</label>
+                        <div class="login-input-wrapper">
+                            <span class="material-symbols-outlined login-input-icon">person</span>
+                            <input type="text" id="login-username" class="login-input" placeholder="Username or Email"
+                                autocomplete="username">
+                        </div>
+                    </div>
+                    <div class="login-field-group">
+                        <div class="login-label-row">
+                            <label class="login-label" for="login-password">SECURITY CREDENTIAL</label>
+                            <button class="login-forgot-btn" id="btn-forgot">FORGOT?</button>
+                        </div>
+                        <div class="login-input-wrapper">
+                            <span class="material-symbols-outlined login-input-icon">lock</span>
+                            <input type="password" id="login-password" class="login-input"
+                                placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                                autocomplete="current-password">
+                            <button class="login-eye-btn" id="btn-toggle-password">
+                                <span class="material-symbols-outlined">visibility_off</span>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="login-submit-btn" id="btn-login">
+                        INITIALIZE TERMINAL <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <p class="login-footer-text">
+                        Unauthorized access prohibited. <button class="login-request-btn"
+                            id="btn-request-access">Register</button>
+                    </p>
+                </div>
+                <div class="login-status-bar">
+                    <div class="status-item"><span class="material-symbols-outlined">lock</span> AES-256</div>
+                    <div class="status-item"><span class="material-symbols-outlined">hub</span> NODE: HK-04</div>
+                    <div class="status-item status-live"><span class="pulse-dot"></span> TERMINAL LIVE</div>
+                </div>
+                <p class="login-security-notice">THIS SYSTEM IS PROTECTED BY ARMOR IQ.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL (Multi-Step Wizard) -->
+    <div id="modal-register" class="modal-overlay hidden">
+        <div class="modal-card register-modal register-wizard">
+            <button class="modal-close-btn" id="btn-close-register"><span
+                    class="material-symbols-outlined">close</span></button>
+
+            <!-- Progress Stepper -->
+            <div class="reg-stepper">
+                <div class="reg-step-dot active" data-step="1"><span>1</span></div>
+                <div class="reg-step-line"></div>
+                <div class="reg-step-dot" data-step="2"><span>2</span></div>
+                <div class="reg-step-line"></div>
+                <div class="reg-step-dot" data-step="3"><span>3</span></div>
+                <div class="reg-step-line"></div>
+                <div class="reg-step-dot" data-step="4"><span>4</span></div>
+            </div>
+
+            <!-- STEP 1: Identity -->
+            <div class="reg-step-panel active" id="reg-step-1">
+                <h2 class="modal-title">CREATE YOUR IDENTITY</h2>
+                <p class="modal-subtitle">Provide your credentials for compliance verification.</p>
+                <div class="login-field-group">
+                    <label class="login-label" for="reg-fullname">FULL NAME</label>
+                    <div class="login-input-wrapper"><span
+                            class="material-symbols-outlined login-input-icon">badge</span><input type="text"
+                            id="reg-fullname" class="login-input" placeholder="Legal Full Name"></div>
+                </div>
+                <div class="login-field-group">
+                    <label class="login-label" for="reg-email">EMAIL ADDRESS</label>
+                    <div class="login-input-wrapper"><span
+                            class="material-symbols-outlined login-input-icon">mail</span><input type="email"
+                            id="reg-email" class="login-input" placeholder="name@example.com"></div>
+                </div>
+                <div class="login-field-group">
+                    <label class="login-label" for="reg-password">CREATE CREDENTIAL</label>
+                    <div class="login-input-wrapper"><span
+                            class="material-symbols-outlined login-input-icon">lock</span><input type="password"
+                            id="reg-password" class="login-input" placeholder="Minimum 12 characters"></div>
+                </div>
+                <button class="login-submit-btn" id="btn-reg-next-1">CONTINUE <span
+                        class="material-symbols-outlined">arrow_forward</span></button>
+            </div>
+
+            <!-- STEP 2: Trading Experience -->
+            <div class="reg-step-panel" id="reg-step-2">
+                <h2 class="modal-title">TRADING EXPERIENCE</h2>
+                <p class="modal-subtitle">Help us calibrate your risk profile and policy recommendations.</p>
+
+                <div class="exp-question">
+                    <label class="login-label">EXPERIENCE LEVEL</label>
+                    <div class="exp-cards" id="exp-level-cards">
+                        <button class="exp-card" data-value="beginner">
+                            <span class="material-symbols-outlined exp-card-icon">school</span>
+                            <span class="exp-card-title">Beginner</span>
+                            <span class="exp-card-desc">Less than 1 year</span>
+                        </button>
+                        <button class="exp-card" data-value="intermediate">
+                            <span class="material-symbols-outlined exp-card-icon">trending_up</span>
+                            <span class="exp-card-title">Intermediate</span>
+                            <span class="exp-card-desc">1–3 years active</span>
+                        </button>
+                        <button class="exp-card" data-value="advanced">
+                            <span class="material-symbols-outlined exp-card-icon">query_stats</span>
+                            <span class="exp-card-title">Advanced</span>
+                            <span class="exp-card-desc">3–7 years institutional</span>
+                        </button>
+                        <button class="exp-card" data-value="expert">
+                            <span class="material-symbols-outlined exp-card-icon">military_tech</span>
+                            <span class="exp-card-title">Expert</span>
+                            <span class="exp-card-desc">7+ years, fund-level</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="exp-question">
+                    <label class="login-label">RISK TOLERANCE</label>
+                    <div class="exp-risk-slider-wrap">
+                        <input type="range" id="exp-risk-slider" class="exp-risk-slider" min="1" max="5" value="3"
+                            step="1">
+                        <div class="exp-risk-labels">
+                            <span>Conservative</span>
+                            <span>Moderate</span>
+                            <span>Aggressive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exp-question">
+                    <label class="login-label">TRADING INSTRUMENTS (select all that apply)</label>
+                    <div class="exp-chips" id="exp-instruments">
+                        <button class="exp-chip" data-value="spot">Spot Trading</button>
+                        <button class="exp-chip" data-value="futures">Futures</button>
+                        <button class="exp-chip" data-value="options">Options</button>
+                        <button class="exp-chip" data-value="defi">DeFi/Yield</button>
+                        <button class="exp-chip" data-value="nft">NFT/Collectibles</button>
+                        <button class="exp-chip" data-value="algo">Algorithmic</button>
+                    </div>
+                </div>
+
+                <div class="exp-question">
+                    <label class="login-label">PORTFOLIO SIZE</label>
+                    <div class="exp-cards exp-cards-row" id="exp-portfolio-cards">
+                        <button class="exp-card compact" data-value="small">
+                            <span class="exp-card-title">
+                                < $50K</span>
+                        </button>
+                        <button class="exp-card compact" data-value="medium">
+                            <span class="exp-card-title">$50K–$500K</span>
+                        </button>
+                        <button class="exp-card compact" data-value="large">
+                            <span class="exp-card-title">$500K–$5M</span>
+                        </button>
+                        <button class="exp-card compact" data-value="institutional">
+                            <span class="exp-card-title">$5M+</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reg-btn-row">
+                    <button class="btn-secondary" id="btn-reg-back-2"><span
+                            class="material-symbols-outlined">arrow_back</span> BACK</button>
+                    <button class="login-submit-btn" id="btn-reg-next-2">ANALYZE PROFILE <span
+                            class="material-symbols-outlined">auto_awesome</span></button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Policy Suggestions -->
+            <div class="reg-step-panel" id="reg-step-3">
+                <div class="policy-suggest-header">
+                    <span class="material-symbols-outlined policy-suggest-icon">smart_toy</span>
+                    <div>
+                        <h2 class="modal-title">AI POLICY RECOMMENDATIONS</h2>
+                        <p class="modal-subtitle">Based on your experience profile, Sentinel recommends these
+                            guardrails.</p>
+                    </div>
+                </div>
+
+                <div class="policy-suggest-profile" id="policy-suggest-profile">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="policy-suggest-list" id="policy-suggest-list">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="reg-btn-row">
+                    <button class="btn-secondary" id="btn-reg-back-3"><span
+                            class="material-symbols-outlined">arrow_back</span> BACK</button>
+                    <button class="login-submit-btn" id="btn-reg-next-3">ACCEPT & REGISTER <span
+                            class="material-symbols-outlined">verified</span></button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Success -->
+            <div class="reg-step-panel" id="reg-step-4">
+                <div class="reg-success-content">
+                    <div class="reg-success-icon-wrap">
+                        <span class="material-symbols-outlined reg-success-icon">check_circle</span>
+                    </div>
+                    <h2 class="modal-title" style="text-align:center">TERMINAL ACCESS GRANTED</h2>
+                    <p class="modal-subtitle" style="text-align:center">Your identity has been registered and policies
+                        have been applied. The compliance team has been notified.</p>
+                    <div class="reg-success-details" id="reg-success-details">
+                        <!-- Filled dynamically -->
+                    </div>
+                    <button class="login-submit-btn" id="btn-reg-finish">INITIALIZE TERMINAL <span
+                            class="material-symbols-outlined">arrow_forward</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="modal-forgot" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="btn-close-forgot"><span
+                    class="material-symbols-outlined">close</span></button>
+            <h2 class="modal-title">RESET SECURITY CREDENTIAL</h2>
+            <p class="modal-subtitle">An encrypted reset link will be dispatched to your institutional email.</p>
+            <div class="login-field-group">
+                <label class="login-label" for="forgot-email">EMAIL ADDRESS</label>
+                <div class="login-input-wrapper"><span
+                        class="material-symbols-outlined login-input-icon">mail</span><input type="email"
+                        id="forgot-email" class="login-input" placeholder="name@example.com"></div>
+            </div>
+            <button class="login-submit-btn" id="btn-submit-forgot">DISPATCH RESET <span
+                    class="material-symbols-outlined">send</span></button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- POLICY ALERT MODAL -->
+    <div id="modal-policy-alert" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="btn-close-policy-alert"><span
+                    class="material-symbols-outlined">close</span></button>
+            <h2 class="modal-title">ARMORIQ POLICY DECISION</h2>
+            <p class="modal-subtitle">Why FINCLAW blocked or allowed this action.</p>
+            <div class="reg-success-details" id="policy-alert-details"></div>
+            <button class="login-submit-btn" id="btn-open-policies-from-alert">OPEN POLICY VIEW <span
+                    class="material-symbols-outlined">shield</span></button>
+        </div>
+    </div>
+
+    <!-- MAIN APP SHELL -->
+    <div id="page-app" class="page">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-logo" style="display: flex; align-items: center; gap: 4px;">FINCLAW<img src="favicon.png" alt="Finclaw Icon" style="height: 3em; width: auto; object-fit: contain;"></h1>
+                <p class="sidebar-tagline">Institutional Grade</p>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-page="dashboard" id="nav-dashboard"><span
+                        class="material-symbols-outlined">dashboard</span><span
+                        class="nav-label">Dashboard</span></button>
+                <button class="nav-item" data-page="assets" id="nav-assets"><span
+                        class="material-symbols-outlined">database</span><span class="nav-label">Assets</span></button>
+                <button class="nav-item" data-page="policies" id="nav-policies"><span
+                        class="material-symbols-outlined">policy</span><span class="nav-label">Policies</span></button>
+                <button class="nav-item" data-page="history" id="nav-history"><span
+                        class="material-symbols-outlined">history</span><span class="nav-label">History</span></button>
+                <button class="nav-item" data-page="settings" id="nav-settings"><span
+                        class="material-symbols-outlined">settings</span><span
+                        class="nav-label">Settings</span></button>
+                <button class="nav-item" data-page="support" id="nav-support"><span
+                        class="material-symbols-outlined">help</span><span class="nav-label">Support</span></button>
+            </nav>
+            <div class="sidebar-user">
+                <div class="user-avatar">AC</div>
+                <div class="user-info"><span class="user-name">Alex Chen</span><span class="user-tier">Tier 1
+                        Executive</span></div>
+                <button class="sidebar-logout-btn" id="btn-logout" title="Logout"><span
+                        class="material-symbols-outlined">logout</span></button>
+            </div>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <div class="topbar">
+                <div class="topbar-tabs">
+                    <button class="topbar-tab active" data-tab="markets" id="tab-markets">Markets</button>
+                    <button class="topbar-tab" data-tab="terminal" id="tab-terminal">Terminal</button>
+                    <button class="topbar-tab" data-tab="liquidity" id="tab-liquidity">Liquidity</button>
+                </div>
+                <div class="topbar-actions">
+                    <button class="topbar-icon-btn" id="btn-sentinel" title="Open AI Sentinel"><span
+                            class="material-symbols-outlined">smart_toy</span></button>
+                    <button class="topbar-icon-btn" id="btn-notifications" title="Notifications"><span
+                            class="material-symbols-outlined">notifications</span><span
+                            class="notif-badge">3</span></button>
+                    <button class="topbar-icon-btn" id="btn-fullscreen" title="Toggle Fullscreen"><span
+                            class="material-symbols-outlined">fullscreen</span></button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD VIEW -->
+            <div id="view-dashboard" class="view active">
+                <div class="dashboard-grid">
+                    <section class="card card-portfolio" id="card-portfolio">
+                        <p class="card-eyebrow">Total Combined Portfolio</p>
+                        <h2 class="portfolio-value" id="portfolio-value">$1,240,500.82</h2>
+                        <div class="portfolio-metrics">
+                            <div class="metric"><span class="metric-label">Realized P/L</span><span
+                                    class="metric-value positive">+$84,200.00</span></div>
+                            <div class="metric"><span class="metric-label">Unrealized P/L</span><span
+                                    class="metric-value positive">+$12,490.15</span></div>
+                            <div class="metric"><span class="metric-label">Projected Growth</span><span
+                                    class="metric-value gold">14.8% YOY</span></div>
+                        </div>
+                    </section>
+                    <section class="card card-primary-asset" id="card-primary-asset">
+                        <p class="card-eyebrow">Primary Asset</p>
+                        <h3 class="asset-ticker">BTC/USD</h3>
+                        <p class="asset-holding">Holding: 12.48 BTC</p>
+                        <div class="mini-chart" id="btc-chart"></div>
+                    </section>
+                    <section class="card card-orders" id="card-orders">
+                        <p class="card-eyebrow">Active Orders</p>
+                        <h3 class="orders-count">04 <span class="orders-label">OPEN</span></h3>
+                        <p class="orders-margin">Total Margin: $42,000</p>
+                    </section>
+                    <section class="card card-intelligence" id="card-intelligence">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">analytics</span> Market
+                            Intelligence</h4>
+                        <div class="intel-subsection">
+                            <h5 class="intel-subtitle">Institutional Flows</h5>
+                            <div class="intel-item">
+                                <div class="intel-item-header"><span class="intel-name">BlackRock ETF Buy</span><span
+                                        class="intel-amount positive">+$420,000</span></div>
+                                <span class="intel-status confirmed">CONFIRMED &#8226; 2M AGO</span>
+                            </div>
+                            <div class="intel-item">
+                                <div class="intel-item-header"><span class="intel-name">Grayscale
+                                        Liquidation</span><span class="intel-amount negative">-$125,400</span></div>
+                                <span class="intel-status processing">PROCESSING &#8226; 14M AGO</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="card card-distribution" id="card-distribution">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">pie_chart</span> Asset
+                            Distribution</h4>
+                        <div class="distribution-chart" id="distribution-chart"></div>
+                        <div class="distribution-legend" id="distribution-legend"></div>
+                    </section>
+                    <section class="card card-risk" id="card-risk-dashboard">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">shield</span> Risk
+                            Monitor</h4>
+                        <p class="risk-subtitle">Live Portfolio Pulse</p>
+                        <div class="risk-gauge" id="risk-gauge">
+                            <svg viewBox="0 0 120 70" class="gauge-svg">
+                                <path d="M 10 65 A 50 50 0 0 1 110 65" fill="none" stroke="#2a2a2a" stroke-width="8"
+                                    stroke-linecap="round" />
+                                <path d="M 10 65 A 50 50 0 0 1 110 65" fill="none" stroke="url(#gaugeGradient)"
+                                    stroke-width="8" stroke-linecap="round" stroke-dasharray="157"
+                                    stroke-dashoffset="50" id="gauge-fill" />
+                                <defs>
+                                    <linearGradient id="gaugeGradient">
+                                        <stop offset="0%" stop-color="#E31B23" />
+                                        <stop offset="50%" stop-color="#EAC349" />
+                                        <stop offset="100%" stop-color="#4CAF50" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="gauge-value" id="gauge-value">68%</span>
+                        </div>
+                        <p class="risk-warning">Volatility is rising in BTC sectors.<br>Hedge recommended for Tier 1
+                            stability.</p>
+                    </section>
+                    <section class="card card-activity" id="card-activity">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">receipt_long</span>
+                            Recent Activity</h4>
+                        <div class="activity-list" id="activity-list">
+                            <div class="activity-item">
+                                <span class="material-symbols-outlined activity-icon sell">south_west</span>
+                                <div class="activity-details">
+                                    <p class="activity-text">Limit sell order filled for 2.4 BTC at $68,400.02</p>
+                                    <p class="activity-meta">IP: 192.168.1.1 (London, UK)</p>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <span class="material-symbols-outlined activity-icon buy">north_east</span>
+                                <div class="activity-details">
+                                    <p class="activity-text">Account credited +$1,240.00 from SPY holdings.</p>
+                                    <p class="activity-meta">Auto-settlement &#8226; Compliance verified</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- TERMINAL VIEW -->
+            <div id="view-terminal" class="view">
+                <div class="terminal-grid">
+                    <!-- Left: Chart & Order Book -->
+                    <div class="terminal-main">
+                        <section class="card terminal-chart-card">
+                            <div class="terminal-tool-bar">
+                                <h3 class="asset-ticker">BTC/USD <span class="asset-price positive">$64,231.50</span>
+                                </h3>
+                                <div class="chart-tools">
+                                    <button class="tool-btn active">1H</button>
+                                    <button class="tool-btn">4H</button>
+                                    <button class="tool-btn">1D</button>
+                                </div>
+                            </div>
+                            <div class="terminal-main-chart" id="terminal-main-chart"></div>
+                        </section>
+                        <div class="terminal-bottom-row">
+                            <section class="card orderbook-card">
+                                <h4 class="card-section-title">Order Book</h4>
+                                <div class="orderbook-cols">
+                                    <div class="orderbook-col bids">
+                                        <div class="ob-row"><span class="ob-price">64,230.10</span><span
+                                                class="ob-size">1.45</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,228.50</span><span
+                                                class="ob-size">0.82</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,225.00</span><span
+                                                class="ob-size">3.10</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,221.15</span><span
+                                                class="ob-size">5.65</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,218.00</span><span
+                                                class="ob-size">12.0</span></div>
+                                    </div>
+                                    <div class="orderbook-col asks">
+                                        <div class="ob-row"><span class="ob-price">64,232.00</span><span
+                                                class="ob-size">0.50</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,235.10</span><span
+                                                class="ob-size">2.14</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,238.45</span><span
+                                                class="ob-size">1.80</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,242.00</span><span
+                                                class="ob-size">4.20</span></div>
+                                        <div class="ob-row"><span class="ob-price">64,245.50</span><span
+                                                class="ob-size">8.50</span></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Right: Execution Panel -->
+                    <div class="terminal-side">
+                        <section class="card trade-panel">
+                            <h4 class="card-section-title">Trade Execution</h4>
+                            <div class="trade-tabs">
+                                <button class="trade-toggle active" data-type="buy">BUY</button>
+                                <button class="trade-toggle" data-type="sell">SELL</button>
+                            </div>
+
+                            <div class="login-field-group" style="margin-top: 20px;">
+                                <label class="login-label">ASSET</label>
+                                <select id="trade-asset" class="login-input"
+                                    style="appearance: none; background-color: var(--bg-tertiary);">
+                                    <option value="AAPL">AAPL / USD</option>
+                                    <option value="MSFT">MSFT / USD</option>
+                                    <option value="NVDA">NVDA / USD</option>
+                                </select>
+                            </div>
+
+                            <div class="login-field-group">
+                                <label class="login-label">AMOUNT (USD)</label>
+                                <div class="login-input-wrapper">
+                                    <span class="material-symbols-outlined login-input-icon">attach_money</span>
+                                    <input type="number" id="trade-amount" class="login-input" placeholder="0.00">
+                                </div>
+                            </div>
+
+                            <div class="login-field-group">
+                                <label class="login-label">LEVERAGE MUX</label>
+                                <div class="exp-risk-slider-wrap">
+                                    <input type="range" class="exp-risk-slider" min="1" max="5" value="1" step="1">
+                                    <div class="exp-risk-labels" style="justify-content: space-between">
+                                        <span>1x</span><span>3x</span><span>5x</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trade-summary">
+                                <div class="summary-row"><span>Available Margin</span><span>$420,000.00</span></div>
+                                <div class="summary-row"><span>Est. Fee</span><span>0.02%</span></div>
+                            </div>
+
+                            <button class="btn-primary trade-execute-buy" id="btn-execute-trade">EXECUTE TRADE <span
+                                    class="material-symbols-outlined">arrow_forward</span></button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIQUIDITY VIEW -->
+            <div id="view-liquidity" class="view">
+                <div class="liquidity-header">
+                    <h2 class="view-title">Dark Pool & Global Liquidity</h2>
+                    <p class="view-subtitle">Real-time institutional liquidity aggregation and smart routing networks.
+                    </p>
+                </div>
+
+                <div class="liquidity-metrics">
+                    <section class="card">
+                        <p class="card-eyebrow">Aggregated Depth (BTC)</p>
+                        <h2 class="portfolio-value">14,240 <span class="asset-ticker" style="font-size: 14px">BTC</span>
+                        </h2>
+                    </section>
+                    <section class="card">
+                        <p class="card-eyebrow">Average Spread</p>
+                        <h2 class="portfolio-value">0.8 <span class="asset-ticker" style="font-size: 14px">BPS</span>
+                        </h2>
+                    </section>
+                    <section class="card">
+                        <p class="card-eyebrow">Smart Route Avg. Ping</p>
+                        <h2 class="portfolio-value">12 <span class="asset-ticker" style="font-size: 14px">ms</span></h2>
+                    </section>
+                </div>
+
+                <h4 class="card-section-title" style="margin-top: 24px; margin-bottom: 16px;">Active Liquidity Nodes
+                </h4>
+                <div class="liquidity-nodes">
+                    <div class="card liq-node">
+                        <div class="liq-node-header">
+                            <span class="material-symbols-outlined"
+                                style="color: #F3BA2F; font-size: 32px">currency_bitcoin</span>
+                            <div>
+                                <h4 style="margin:0">Binance VIP</h4>
+                                <span class="intel-status confirmed">ONLINE</span>
+                            </div>
+                        </div>
+                        <div class="summary-row"><span>Tier 1 Depth</span><span>4,200 BTC</span></div>
+                        <div class="summary-row"><span>Latency</span><span>18ms</span></div>
+                    </div>
+                    <div class="card liq-node">
+                        <div class="liq-node-header">
+                            <span class="material-symbols-outlined"
+                                style="color: #2A5ADA; font-size: 32px">account_balance</span>
+                            <div>
+                                <h4 style="margin:0">Coinbase Prime</h4>
+                                <span class="intel-status confirmed">ONLINE</span>
+                            </div>
+                        </div>
+                        <div class="summary-row"><span>Tier 1 Depth</span><span>3,150 BTC</span></div>
+                        <div class="summary-row"><span>Latency</span><span>24ms</span></div>
+                    </div>
+                    <div class="card liq-node">
+                        <div class="liq-node-header">
+                            <span class="material-symbols-outlined" style="color: #9945FF; font-size: 32px">hub</span>
+                            <div>
+                                <h4 style="margin:0">FINCLAW Dark Pool</h4>
+                                <span class="intel-status processing">ROUTING</span>
+                            </div>
+                        </div>
+                        <div class="summary-row"><span>Internal Depth</span><span>8,500 BTC</span></div>
+                        <div class="summary-row"><span>Latency</span><span>2ms</span></div>
+                    </div>
+                    <div class="card liq-node">
+                        <div class="liq-node-header">
+                            <span class="material-symbols-outlined"
+                                style="color: #4A4949; font-size: 32px">storage</span>
+                            <div>
+                                <h4 style="margin:0">Kraken OTC</h4>
+                                <span class="intel-status" style="color: #888">MAINTENANCE</span>
+                            </div>
+                        </div>
+                        <div class="summary-row"><span>Tier 1 Depth</span><span>--</span></div>
+                        <div class="summary-row"><span>Latency</span><span>--</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASSETS VIEW -->
+            <div id="view-assets" class="view">
+                <div class="assets-header">
+                    <h2 class="view-title">Asset Portfolio</h2>
+                    <div class="assets-controls">
+                        <div class="search-wrapper"><span class="material-symbols-outlined">search</span><input
+                                type="text" id="asset-search" class="search-input" placeholder="Search assets..."></div>
+                        <button class="btn-secondary" id="btn-add-asset"><span
+                                class="material-symbols-outlined">add</span> Add Asset</button>
+                    </div>
+                </div>
+                <div class="assets-table-wrap">
+                    <table class="assets-table" id="assets-table">
+                        <thead>
+                            <tr>
+                                <th>Asset</th>
+                                <th>Price</th>
+                                <th>24h Change</th>
+                                <th>Holdings</th>
+                                <th>Value</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assets-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- POLICIES VIEW -->
+            <div id="view-policies" class="view">
+                <div class="policies-header">
+                    <h2 class="view-title">Policy Management</h2>
+                    <p class="view-subtitle">Control automated execution parameters and risk guardrails.</p>
+                </div>
+                <div class="policies-grid" id="policies-grid"></div>
+                <div class="policies-nlp-section">
+                    <h4 class="card-section-title"><span class="material-symbols-outlined">rule</span> Add Custom Policy</h4>
+                    <div class="nlp-input-row" style="margin-bottom:12px;">
+                        <input type="text" id="custom-policy-title" class="nlp-input" placeholder="Policy title e.g. Block Meme Stocks">
+                        <input type="text" id="custom-policy-value" class="nlp-input" placeholder="Rule/value e.g. Block GME, AMC, BB during automation">
+                        <button class="btn-primary" id="btn-add-policy">Add Policy <span class="material-symbols-outlined">add</span></button>
+                    </div>
+                </div>
+                <div class="policies-nlp-section">
+                    <h4 class="card-section-title"><span class="material-symbols-outlined">smart_toy</span> Natural
+                        Language Policy (AI-Alpha)</h4>
+                    <p class="nlp-description">Describe your custom rule in plain English to generate execution logic.
+                    </p>
+                    <div class="nlp-input-row">
+                        <input type="text" id="nlp-policy-input" class="nlp-input"
+                            placeholder="e.g., Stop trading SOL if daily loss exceeds 3%...">
+                        <button class="btn-primary" id="btn-generate-policy">Generate <span
+                                class="material-symbols-outlined">auto_awesome</span></button>
+                    </div>
+                </div>
+                <section class="card card-risk policies-risk" id="card-risk-policies">
+                    <h4 class="card-section-title"><span class="material-symbols-outlined">shield</span> Risk Monitor
+                    </h4>
+                    <p class="risk-subtitle">Live Portfolio Pulse</p>
+                    <div class="violation-list" id="violation-list">
+                        <div class="violation-item warning">
+                            <div class="violation-header"><span class="material-symbols-outlined">warning</span><span
+                                    class="violation-name">Active Violations</span></div>
+                        </div>
+                        <div class="violation-item">
+                            <div class="violation-header"><span class="violation-name">ETH Drift Violation</span><span
+                                    class="violation-time">2m ago</span></div>
+                            <p class="violation-detail">Automated sell triggered</p>
+                        </div>
+                        <div class="violation-item">
+                            <div class="violation-header"><span class="violation-name">Limit Compliance</span><span
+                                    class="violation-time">15m ago</span></div>
+                            <p class="violation-detail">BTC position approved</p>
+                        </div>
+                    </div>
+                    <div class="encrypted-tag">Encrypted Terminal V2.4</div>
+                </section>
+            </div>
+
+            <!-- HISTORY VIEW -->
+            <div id="view-history" class="view">
+                <div class="history-header">
+                    <h2 class="view-title">Transaction History</h2>
+                    <div class="history-filters">
+                        <select id="history-type-filter" class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                            <option value="transfer">Transfer</option>
+                        </select>
+                        <select id="history-time-filter" class="filter-select">
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                            <option value="90d">Last 90 Days</option>
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="history-list" id="history-list"></div>
+            </div>
+
+            <!-- SETTINGS VIEW -->
+            <div id="view-settings" class="view">
+                <h2 class="view-title">Terminal Settings</h2>
+                <div class="settings-grid">
+                    <section class="card settings-card">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">person</span> Profile
+                        </h4>
+                        <div class="settings-row"><label>Display Name</label><input type="text" class="settings-input"
+                                id="settings-name" value="Alex Chen"></div>
+                        <div class="settings-row"><label>Email</label><input type="email" class="settings-input"
+                                id="settings-email" value="alex.chen@institution.com"></div>
+                        <button class="btn-primary" id="btn-save-profile">Save Changes</button>
+                    </section>
+                    <section class="card settings-card">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">security</span> Security
+                        </h4>
+                        <div class="settings-row"><label>Two-Factor Auth</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-2fa" checked><span
+                                    class="toggle-slider"></span></label></div>
+                        <div class="settings-row"><label>Biometric Login</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-biometric"><span class="toggle-slider"></span></label>
+                        </div>
+                        <div class="settings-row"><label>Session Timeout</label><select class="filter-select"
+                                id="settings-timeout">
+                                <option value="15">15 min</option>
+                                <option value="30" selected>30 min</option>
+                                <option value="60">1 hour</option>
+                            </select></div>
+                        <button class="btn-primary" id="btn-save-security">Update Security</button>
+                    </section>
+                    <section class="card settings-card">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">notifications</span>
+                            Notifications</h4>
+                        <div class="settings-row"><label>Trade Alerts</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-trade-alerts" checked><span
+                                    class="toggle-slider"></span></label></div>
+                        <div class="settings-row"><label>Risk Warnings</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-risk-alerts" checked><span
+                                    class="toggle-slider"></span></label></div>
+                        <div class="settings-row"><label>Market Updates</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-market-alerts"><span
+                                    class="toggle-slider"></span></label></div>
+                        <button class="btn-primary" id="btn-save-notifications">Save Preferences</button>
+                    </section>
+                    <section class="card settings-card">
+                        <h4 class="card-section-title"><span class="material-symbols-outlined">palette</span> Appearance
+                        </h4>
+                        <div class="settings-row"><label>Dark Mode</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-darkmode" checked><span
+                                    class="toggle-slider"></span></label></div>
+                        <div class="settings-row"><label>Compact View</label><label class="toggle-switch"><input
+                                    type="checkbox" id="settings-compact"><span class="toggle-slider"></span></label>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- SUPPORT VIEW -->
+            <div id="view-support" class="view">
+                <h2 class="view-title">Support Center</h2>
+                <div class="support-grid">
+                    <section class="card support-card"><span
+                            class="material-symbols-outlined support-icon">description</span>
+                        <h4>Documentation</h4>
+                        <p>Access the full technical documentation and API reference.</p><button class="btn-secondary"
+                            id="btn-docs">View Docs</button>
+                    </section>
+                    <section class="card support-card"><span class="material-symbols-outlined support-icon">forum</span>
+                        <h4>Live Chat</h4>
+                        <p>Connect with a Tier-1 support engineer in real-time.</p><button class="btn-secondary"
+                            id="btn-live-chat">Start Chat</button>
+                    </section>
+                    <section class="card support-card"><span
+                            class="material-symbols-outlined support-icon">bug_report</span>
+                        <h4>Report Issue</h4>
+                        <p>Submit a bug report or feature request to our team.</p><button class="btn-secondary"
+                            id="btn-report-issue">Report</button>
+                    </section>
+                    <section class="card support-card"><span
+                            class="material-symbols-outlined support-icon">school</span>
+                        <h4>Training</h4>
+                        <p>Access institutional trading tutorials and webinars.</p><button class="btn-secondary"
+                            id="btn-training">Enroll</button>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- AI SENTINEL PANEL -->
+        <aside class="sentinel-panel" id="sentinel-panel">
+            <div class="sentinel-header">
+                <div class="sentinel-title-row">
+                    <h3 class="sentinel-title">FINCLAW Sentinel</h3><button class="sentinel-close-btn"
+                        id="btn-close-sentinel"><span class="material-symbols-outlined">close</span></button>
+                </div>
+                <p class="sentinel-subtitle">AI Risk Advisor &#8226; Real-time Neural Engine</p>
+            </div>
+            <div class="sentinel-messages" id="sentinel-messages">
+                <div class="sentinel-msg bot">
+                    <div class="sentinel-msg-avatar"><span class="material-symbols-outlined">smart_toy</span></div>
+                    <div class="sentinel-msg-content">
+                        <p>Welcome. ArmorIQ is online and connected to FINCLAW. I can inspect your portfolio, explain policy decisions, and trigger safe paper-trading automation through the live backend.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sentinel-input-area">
+                <input type="text" id="sentinel-input" class="sentinel-input"
+                    placeholder="Ask Sentinel about risk, positions, market...">
+                <button class="sentinel-send-btn" id="btn-sentinel-send"><span
+                        class="material-symbols-outlined">send</span></button>
+            </div>
+            <div class="sentinel-risk-mini">
+                <h5 class="sentinel-risk-title">Risk Monitor</h5>
+                <p class="risk-subtitle">Live Portfolio Pulse</p>
+                <div class="sentinel-threats">
+                    <div class="threat-item"><span class="threat-label">Active Threats</span>
+                        <div class="threat-bar">
+                            <div class="threat-fill" style="width: 84%"></div>
+                        </div><span class="threat-value">84%</span>
+                    </div>
+                    <div class="threat-item"><span class="threat-label">Compliance</span>
+                        <div class="threat-bar compliance">
+                            <div class="threat-fill" style="width: 92%"></div>
+                        </div><span class="threat-value">92%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- NOTIFICATION DROPDOWN -->
+    <div class="notification-dropdown hidden" id="notification-dropdown">
+        <div class="notification-header">
+            <h4>Notifications</h4><button class="btn-text" id="btn-clear-notifs">Clear All</button>
+        </div>
+        <div class="notification-list" id="notification-list">
+            <div class="notification-item unread"><span class="material-symbols-outlined notif-icon">warning</span>
+                <div class="notif-content">
+                    <p class="notif-text">BTC exposure exceeds 60% threshold</p>
+                    <p class="notif-time">2 minutes ago</p>
+                </div>
+            </div>
+            <div class="notification-item unread"><span class="material-symbols-outlined notif-icon">check_circle</span>
+                <div class="notif-content">
+                    <p class="notif-text">Limit sell order filled: 2.4 BTC @ $68,400</p>
+                    <p class="notif-time">5 minutes ago</p>
+                </div>
+            </div>
+            <div class="notification-item"><span class="material-symbols-outlined notif-icon">info</span>
+                <div class="notif-content">
+                    <p class="notif-text">New policy update: V4.2 Restricted Assets</p>
+                    <p class="notif-time">14 minutes ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

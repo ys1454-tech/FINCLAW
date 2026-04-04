@@ -1,0 +1,8 @@
+flowchart TD
+    A[Reasoning / Agent Loop] --> B[Structured Intent Model]
+    B --> C[Policy Enforcement Engine]
+    C -->|Allow| D[Execution Layer / Alpaca Paper API]
+    C -->|Block| E[Decision Log + Audit Record]
+    D --> F[Trade Record + Audit Record]
+    F --> G[Dashboard / Logs]
+    E --> G[Dashboard / Logs]
